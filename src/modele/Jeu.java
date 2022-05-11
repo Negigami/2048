@@ -28,8 +28,8 @@ public class Jeu extends Observable {
         Point p = map.get(c);
         switch (d) {
             case haut -> {
-                if (p.y - 1 >= 0) {
-                    p.y -= 1;
+                if (p.x - 1 >= 0) {
+                    p.x -= 1;
                 }
                 break;
             }
@@ -120,8 +120,8 @@ public class Jeu extends Observable {
                         break;
                     }
                     case haut -> {
-                        tabCases[pC.getX()][pC.getY() - 1] = c;
-                        map.get(c).setY(pC.getY() - 1);
+                        tabCases[pC.getX() - 1][pC.getY()] = c;
+                        map.get(c).setX(pC.getX() - 1);
                         break;
                     }
                     case gauche -> {
