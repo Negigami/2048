@@ -26,44 +26,46 @@ public class Jeu extends Observable {
 
     public Case getNeighbour(Direction d, Case c) {
         Point p = map.get(c);
+        int x = p.getX();
+        int y = p.getY();
         switch (d) {
             case haut -> {
-                if (p.x - 1 >= 0) {
-                    p.x -= 1;
+                if (x - 1 >= 0) {
+                    x -= 1;
                 }
                 break;
             }
 
-            case bas -> {
-                if (p.y + 1 < tabCases.length) {
-                    p.y += 1;
+            case droite -> {
+                if (y + 1 < tabCases.length) {
+                    y += 1;
                 }
                 break;
             }
 
             case gauche -> {
-                if (p.x - 1 >= 0) {
-                    p.x -= 1;
+                if (y - 1 >= 0) {
+                    y -= 1;
                 }
                 break;
             }
 
-            case droite -> {
-                if (p.x + 1 < tabCases.length) {
-                    p.x += 1;
+            case bas -> {
+                if (x + 1 < tabCases.length) {
+                    x += 1;
                 }
                 break;
             }
         }
-        return tabCases[p.x][p.y];
+        return tabCases[x][y];
     }
 
     public void move(Direction d) {
 
         switch (d) {
-            case droite -> {
-                for (int i = tabCases.length - 1; i > 0; i--) {
-                    for (int j = tabCases[i].length - 1; j > 0; j--) {
+            case bas -> {
+                for (int i = tabCases.length - 1; i >= 0; i--) {
+                    for (int j = tabCases[i].length - 1; j >= 0; j--) {
                         if(tabCases[i][j] != null) {
                             moveCase(d, tabCases[i][j]);
                         }
@@ -71,7 +73,7 @@ public class Jeu extends Observable {
                 }
                 break;
             }
-            case gauche -> {
+            case haut -> {
                 for (int i = 0; i < tabCases.length; i++) {
                     for (int j = 0; j < tabCases[i].length; j++) {
                         if(tabCases[i][j] != null) {
@@ -81,9 +83,9 @@ public class Jeu extends Observable {
                 }
                 break;
             }
-            case bas -> {
-                for (int i = tabCases.length - 1; i > 0; i--) {
-                    for (int j = tabCases[i].length - 1; j > 0; j--) {
+            case droite -> {
+                for (int i = tabCases.length - 1; i >= 0; i--) {
+                    for (int j = tabCases[i].length - 1; j >= 0; j--) {
                         if(tabCases[i][j] != null) {
                             moveCase(d, tabCases[i][j]);
                         }
@@ -91,7 +93,7 @@ public class Jeu extends Observable {
                 }
                 break;
             }
-            case haut -> {
+            case gauche -> {
                 for (int i = 0; i < tabCases.length; i++) {
                     for (int j = 0; j < tabCases[i].length; j++) {
                         if(tabCases[i][j] != null) {
@@ -114,23 +116,27 @@ public class Jeu extends Observable {
             Point pC = map.get(c);
             if (v == null) {
                 switch (d) {
-                    case bas -> {
+                    case droite -> {
                         tabCases[pC.getX()][pC.getY() + 1] = c;
+                        tabCases[pC.getX()][pC.getY()] = null;
                         map.get(c).setY(pC.getY() + 1);
+                        break;
+                    }
+                    case gauche -> {
+                        tabCases[pC.getX()][pC.getY() - 1] = c;
+                        tabCases[pC.getX()][pC.getY()] = null;
+                        map.get(c).setY(pC.getY() - 1);
                         break;
                     }
                     case haut -> {
                         tabCases[pC.getX() - 1][pC.getY()] = c;
+                        tabCases[pC.getX()][pC.getY()] = null;
                         map.get(c).setX(pC.getX() - 1);
                         break;
                     }
-                    case gauche -> {
-                        tabCases[pC.getX() - 1][pC.getY()] = c;
-                        map.get(c).setX(pC.getX() - 1);
-                        break;
-                    }
-                    case droite -> {
+                    case bas -> {
                         tabCases[pC.getX() + 1][pC.getY()] = c;
+                        tabCases[pC.getX()][pC.getY()] = null;
                         map.get(c).setX(pC.getX() + 1);
                         break;
                     }
@@ -143,7 +149,6 @@ public class Jeu extends Observable {
                 tabCases[pV.getX()][pV.getY()] = c;
                 tabCases[pC.getX()][pC.getY()] = null;
             }
-
             v = getNeighbour(d, c);
         }
     }
@@ -158,10 +163,15 @@ public class Jeu extends Observable {
             }
         }
 
-        int r1 = rnd.nextInt(points.size());
-        Case newCase = new Case((rnd.nextInt(2) + 1) * 2);
-        map.put(newCase, points.get(r1));
-        tabCases[points.get(r1).getX()][points.get(r1).getY()] = newCase;
+        if (points.size() != 0) {
+            int r1 = rnd.nextInt(points.size());
+            Case newCase = new Case((rnd.nextInt(2) + 1) * 2);
+            map.put(newCase, points.get(r1));
+            tabCases[points.get(r1).getX()][points.get(r1).getY()] = newCase;
+        } else {
+
+        }
+
     }
 
     public void rnd() {
