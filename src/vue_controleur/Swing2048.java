@@ -30,6 +30,7 @@ public class Swing2048 extends JFrame implements Observer {
 
 
         JPanel contentPane = new JPanel(new GridLayout(jeu.getSize(), jeu.getSize()));
+        setBackground(null);
 
         for (int i = 0; i < jeu.getSize(); i++) {
             for (int j = 0; j < jeu.getSize(); j++) {
@@ -67,10 +68,87 @@ public class Swing2048 extends JFrame implements Observer {
                         if (c == null) {
 
                             tabC[i][j].setText("");
+                            tabC[i][j].setBackground(Color.WHITE);
 
                         } else {
                             tabC[i][j].setText(c.getValeur() + "");
+                            int val = c.getValeur();
+                            Color couleur = new Color(255, 255, 255);
+                            switch (val) {
+                                case 2: {
+                                    couleur = new Color(00, 00, 255);
+                                    tabC[i][j].setBackground(couleur);
+                                    tabC[i][j].setOpaque(true);
+                                    break;
+                                }
+                                case 4: {
+                                    couleur = new Color(200, 231, 255);
+                                    tabC[i][j].setBackground(couleur);
+                                    tabC[i][j].setOpaque(true);
+                                    break;
+                                }
+                                case 8: {
+                                    couleur = new Color(208, 209, 255);
+                                    tabC[i][j].setBackground(couleur);
+                                    tabC[i][j].setOpaque(true);
+                                    break;
+                                }
+                                case 16: {
+                                    couleur = new Color(216, 187, 255);
+                                    tabC[i][j].setBackground(couleur);
+                                    tabC[i][j].setOpaque(true);
+                                    break;
+                                }
+                                case 32: {
+                                    couleur = new Color(222, 170, 255);
+                                    tabC[i][j].setBackground(couleur);
+                                    tabC[i][j].setOpaque(true);
+                                    break;
+                                }
+                                case 64: {
+                                    couleur = new Color(226, 175, 255);
+                                    tabC[i][j].setBackground(couleur);
+                                    tabC[i][j].setOpaque(true);
+                                    break;
+                                }
+                                case 128: {
+                                    couleur = new Color(229, 179, 254);
+                                    tabC[i][j].setBackground(couleur);
+                                    tabC[i][j].setOpaque(true);
+                                }
+                                    break;
+                                case 256: {
+                                    couleur = new Color(236, 188, 253);
+                                    tabC[i][j].setBackground(couleur);
+                                    tabC[i][j].setOpaque(true);
+                                    break;
+                                }
+                                case 512: {
+                                    couleur = new Color(243, 196, 251);
+                                    tabC[i][j].setBackground(couleur);
+                                    tabC[i][j].setOpaque(true);
+                                }
+                                    break;
+                                case 1024: {
+                                    couleur = new Color(255, 203, 242);
+                                    tabC[i][j].setBackground(couleur);
+                                    tabC[i][j].setOpaque(true);
+                                }
+                                    break;
+                                case 2048: {
+                                    couleur = new Color(249, 94, 239);
+                                    tabC[i][j].setBackground(couleur);
+                                    tabC[i][j].setOpaque(true);
+                                    break;
+                                }
+                                default: {
+                                    tabC[i][j].setBackground(couleur);
+                                    tabC[i][j].setOpaque(true);
+                                }
+                            }
+
                         }
+
 
 
                     }
