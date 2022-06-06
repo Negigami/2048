@@ -16,16 +16,33 @@ import static modele.Direction.droite;
 public class Jeu extends Observable {
 
     private Case[][] tabCases;
-    private static Random rnd = new Random(4);
+    private static Random rnd = new Random();
     private HashMap<Case, Point> map = new HashMap<Case, Point>();
 
-    private boolean gameOver = false;
+    private boolean gameOver;
 
-    private int score = 0;
+    private int score;
 
     public Jeu(int size) {
         tabCases = new Case[size][size];
+        gameOver = false;
+        score = 0;
         rnd();
+    }
+
+    public Jeu(Jeu jeu) {
+        this.tabCases = jeu.getTabCases();
+        this.gameOver = jeu.isGameOver();
+        this.score = jeu.getScore();
+        this.map = jeu.getMap();
+    }
+
+    public HashMap<Case, Point> getMap() {
+        return map;
+    }
+
+    public Case[][] getTabCases() {
+        return tabCases;
     }
 
     public int getSize() {
@@ -38,6 +55,10 @@ public class Jeu extends Observable {
 
     public boolean isGameOver() {
         return gameOver;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     public Case getNeighbour(Direction d, Case c) {
