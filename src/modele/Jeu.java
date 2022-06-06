@@ -31,10 +31,20 @@ public class Jeu extends Observable {
     }
 
     public Jeu(Jeu jeu) {
-        this.tabCases = jeu.getTabCases();
+        this.tabCases = new Case[jeu.getSize()][jeu.getSize()];
         this.gameOver = jeu.isGameOver();
         this.score = jeu.getScore();
-        this.map = jeu.getMap();
+
+        for (int i = 0; i < jeu.tabCases.length; i++) {
+            for (int j = 0; j < jeu.tabCases.length; j++) {
+                if (jeu.tabCases[i][j] != null) {
+                    Case c = new Case(jeu.tabCases[i][j].getValeur());
+                    Point p = new Point(i, j);
+                    this.tabCases[i][j] = c;
+                    this.map.put(c, p);
+                }
+            }
+        }
     }
 
     public HashMap<Case, Point> getMap() {
@@ -143,7 +153,7 @@ public class Jeu extends Observable {
         }
 
         addCase();
-        System.out.println("Score : " + score);
+        //System.out.println("Score : " + score);
     }
 
     public void moveCase(Direction d, Case c) {
@@ -213,7 +223,7 @@ public class Jeu extends Observable {
             map.put(newCase, points.get(r1));
             tabCases[points.get(r1).getX()][points.get(r1).getY()] = newCase;
         } else if (gameOver == true) {
-            System.out.println("game over !");
+            //System.out.println("game over !");
         }
     }
 
@@ -267,13 +277,10 @@ public class Jeu extends Observable {
 
                 for (int i = 0; i < tabCases.length; i++) {
                     for (int j = 0; j < tabCases.length; j++) {
-                        r = rnd.nextInt(3);
+                        r = rnd.nextInt(10);
                         Point p = new Point(i, j);
 
                         switch (r) {
-                            case 0:
-                                tabCases[i][j] = null;
-                                break;
                             case 1:
                                 Case c2 = new Case(2);
                                 tabCases[i][j] = c2;
@@ -284,18 +291,17 @@ public class Jeu extends Observable {
                                 tabCases[i][j] = c4;
                                 map.put(c4, p);
                                 break;
+                            default:
+                                tabCases[i][j] = null;
+                                break;
                         }
                     }
                 }
             }
 
         }.start();
-
-
         setChanged();
         notifyObservers();
-
-
     }
 
 }

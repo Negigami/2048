@@ -2,6 +2,7 @@ package vue_controleur;
 
 import modele.Case;
 import modele.Direction;
+import modele.Ia;
 import modele.Jeu;
 
 import javax.swing.*;
@@ -47,7 +48,6 @@ public class Swing2048 extends JFrame implements Observer {
         setContentPane(contentPane);
         ajouterEcouteurClavier();
         rafraichir();
-
     }
 
 
@@ -56,7 +56,7 @@ public class Swing2048 extends JFrame implements Observer {
     /**
      * Correspond à la fonctionnalité de Vue : affiche les données du modèle
      */
-    private void rafraichir()  {
+    public void rafraichir()  {
 
         SwingUtilities.invokeLater(new Runnable() { // demande au processus graphique de réaliser le traitement
             @Override

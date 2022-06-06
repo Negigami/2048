@@ -38,20 +38,20 @@ public class Task implements Runnable {
     public void run() {
         try {
             for (int i = 0; i < precision; i++) {
-                jeu.move(direction);
-                while (!jeu.isGameOver()) {
+                Jeu j = new Jeu(jeu);
+                j.move(direction);
+                while (!j.isGameOver()) {
                     Random rnd = new Random();
                     int r = rnd.nextInt(4);
                     switch (r) {
-                        case 0 : jeu.move(Direction.haut);
-                        case 1 : jeu.move(Direction.bas);
-                        case 2 : jeu.move(Direction.gauche);
-                        case 3 : jeu.move(Direction.droite);
+                        case 0 : j.move(Direction.haut);
+                        case 1 : j.move(Direction.bas);
+                        case 2 : j.move(Direction.gauche);
+                        case 3 : j.move(Direction.droite);
                     }
                 }
-                average += jeu.getScore();
+                average += j.getScore();
             }
-            average /= precision;
         } catch (Exception  e) {
             e.printStackTrace();
         }

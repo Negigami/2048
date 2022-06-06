@@ -1,3 +1,4 @@
+import modele.Ia;
 import modele.Jeu;
 import vue_controleur.Console2048;
 import vue_controleur.Swing2048;
@@ -26,7 +27,12 @@ public class Main {
 
         vue.setVisible(true);
 
-
+        Ia ia = new Ia(jeu, 4, 100);
+        try {
+            ia.MonteCarlo();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
