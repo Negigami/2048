@@ -153,7 +153,6 @@ public class Jeu extends Observable {
         }
 
         addCase();
-        //System.out.println("Score : " + score);
     }
 
     public void moveCase(Direction d, Case c) {
@@ -222,8 +221,6 @@ public class Jeu extends Observable {
             Case newCase = new Case((rnd.nextInt(2) + 1) * 2);
             map.put(newCase, points.get(r1));
             tabCases[points.get(r1).getX()][points.get(r1).getY()] = newCase;
-        } else if (gameOver == true) {
-            //System.out.println("game over !");
         }
     }
 
@@ -263,10 +260,6 @@ public class Jeu extends Observable {
                 }
             };
         };
-        if (gameOver == true) {
-            System.out.println("Partie terminee ! \n Le score final est : " + score);
-        }
-
         return gameOver;
     }
 

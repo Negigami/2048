@@ -12,12 +12,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.nio.channels.Pipe;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
 public class Swing2048 extends JFrame implements Observer {
-    private static final int PIXEL_PER_SQUARE = 60;
+    private static final int PIXEL_PER_SQUARE = 100;
     // tableau de cases : i, j -> case graphique
     private JLabel[][] tabC;
     private Jeu jeu;
@@ -146,17 +147,15 @@ public class Swing2048 extends JFrame implements Observer {
                                     tabC[i][j].setOpaque(true);
                                 }
                             }
-
                         }
-
-
-
                     }
+                }
+                System.out.println("Score : " + jeu.getScore());
+                if (jeu.isGameOver()) {
+                    System.out.println("Partie terminee ! \n Le score final est : " + jeu.getScore());
                 }
             }
         });
-
-
     }
 
     /**

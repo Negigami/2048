@@ -11,12 +11,14 @@ import java.util.concurrent.TimeUnit;
 public class Ia {
     private Jeu jeu;
     private int nbProc;
+    private Swing2048 swing;
     private int precision;
 
-    public Ia(Jeu jeu, int nbProc, int precision) {
+    public Ia(Jeu jeu, int nbProc, int precision, Swing2048 swing) {
         this.jeu = jeu;
         this.nbProc = nbProc;
         this.precision = precision;
+        this.swing = swing;
     }
 
     public void MonteCarlo() throws InterruptedException {
@@ -43,28 +45,18 @@ public class Ia {
             pool.awaitTermination(2, TimeUnit.SECONDS);
 
             Task selectedTask = t1;
-            int ke = KeyEvent.VK_UP;
             if (selectedTask.getAverage() < t2.getAverage()) {
                 selectedTask = t2;
-                ke = KeyEvent.VK_DOWN;
             }
             if (selectedTask.getAverage() < t3.getAverage()) {
                 selectedTask = t3;
-                ke = KeyEvent.VK_LEFT;
             }
             if (selectedTask.getAverage() < t4.getAverage()) {
                 selectedTask = t4;
-                ke = KeyEvent.VK_RIGHT;
             }
 
-            Robot robot = null;
-            try {
-                robot = new Robot();
-                robot.keyPress(ke);
-            } catch (AWTException e) {
-                throw new RuntimeException(e);
-            }
-
+            jeu.move(selectedTask.getDirection());
+            swing.rafraichir();
         }
     }
 }

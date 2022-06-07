@@ -27,7 +27,7 @@ public class Main {
 
         vue.setVisible(true);
 
-        Ia ia = new Ia(jeu, 4, 100);
+        Ia ia = new Ia(jeu, 4, 100, vue);
         try {
             ia.MonteCarlo();
         } catch (InterruptedException e) {
